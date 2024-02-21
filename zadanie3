@@ -1,0 +1,62 @@
+// Создаем исходный массив
+var numbers = [5, 3, 8, 7, 2, 4]
+
+// Сортируем массив по возрастанию используя замыкание
+let sortedAscending = numbers.sorted(by: { $0 < $1 })
+print("Отсортированный массив по возрастанию: \(sortedAscending)")
+
+// Сортируем массив по убыванию используя замыкание
+let sortedDescending = numbers.sorted(by: { $0 > $1 })
+print("Отсортированный массив по убыванию: \(sortedDescending)")
+// Объявляем метод, который принимает имена друзей и возвращает отсортированный массив
+func sortFriendsNames(names: String...) -> [String] {
+    // Положить имена в массив
+    var friendsArray = names
+    
+    // Отсортировать массив по количеству букв в имени
+    friendsArray.sort(by: { $0.count < $1.count })
+    
+    return friendsArray
+}
+
+// Создаем словарь, где ключ - количество символов в имени, а значение - имя
+func createDictionaryWithNames(friends: [String]) -> [Int: String] {
+    var friendsDictionary = [Int: String]()
+    for friend in friends {
+        friendsDictionary[friend.count] = friend
+    }
+    return friendsDictionary
+}
+
+// Функция, которая принимает ключ и выводит полученный ключ и значение
+func printNameForKey(dictionary: [Int: String], key: Int) {
+    if let name = dictionary[key] {
+        print("Ключ: \(key), Значение: \(name)")
+    } else {
+        print("Имя с таким количеством символов не найдено.")
+    }
+}
+
+// Функция, которая принимает 2 массива и проверяет их на пустоту
+func checkAndProcessArrays(strings: inout [String], numbers: inout [Int]) {
+    if strings.isEmpty {
+        strings.append("DefaultString")
+        print("Добавлено стандартное значение в строковый массив: \(strings)")
+    }
+    if numbers.isEmpty {
+        numbers.append(0)
+        print("Добавлено стандартное значение в числовой массив: \(numbers)")
+    }
+}
+
+// Пример использования функций
+let sortedFriends = sortFriendsNames(names: "Александр", "Иван", "Светлана")
+print("Имена друзей отсортированные по количеству букв: \(sortedFriends)")
+
+let friendsDictionary = createDictionaryWithNames(friends: sortedFriends)
+printNameForKey(dictionary: friendsDictionary, key: 4) // Например, пробуем найти имя с 4 символами
+
+// Пример работы функции checkAndProcessArrays
+var stringArray: [String] = [] // Пустой строковый массив
+var numberArray: [Int] = [] // Пустой числовой массив
+checkAndProcessArrays(strings: &stringArray, numbers: &numberArray)
